@@ -1,12 +1,9 @@
 ﻿using OpenQA.Selenium;
 
-
 namespace WebUiFramework
 {
-
     public class HomePage
     {
-
         private IWebDriver driver;
 
         public HomePage(Browser browser)
@@ -14,55 +11,19 @@ namespace WebUiFramework
             this.driver = browser.Driver;
         }
 
-        public IWebElement Header 
-        {
-            get {
-                var e = driver.FindElement(By.CssSelector(".list-header"));
-                return e;
-            }
-        }
-        
-        public IWebElement List
-        {
-            get
-            {
-                var e = driver.FindElement(By.CssSelector("div[role=list]"));
-                return e;
-            }
-        }
+        public IWebElement Header => driver.FindElement(By.CssSelector(".list-header"));
 
-        public IWebElement Form
-        {
-            get
-            {
-                var e = driver.FindElement(By.CssSelector("form"));
-                return e;
-            }
-        }
+        public IWebElement List => driver.FindElement(By.CssSelector("div[role=list]"));
 
-        public IWebElement Input
-        {
-            get
-            {
-                var e = driver.FindElement(By.CssSelector("form .input input"));
-                return e;
-            }
-        }
+        public IWebElement Form => driver.FindElement(By.CssSelector("form"));
 
-        public IWebElement Submit
-        {
-            get
-            {
-                var e = driver.FindElement(By.CssSelector("form .field button"));
-                return e;
-            }
-        }
+        public IWebElement Input => driver.FindElement(By.CssSelector("form .input input"));
 
+        public IWebElement Submit => driver.FindElement(By.CssSelector("form .field button"));
 
         public void Open(string url)
         {            
             driver.Navigate().GoToUrl(url);
         }
-
     }
 }

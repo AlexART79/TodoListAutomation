@@ -1,7 +1,7 @@
 ﻿Feature: AddItem
-	Verify TodoList home page
+	Ensure item can be added
 
-Scenario: Verify new item added	
+Scenario: Add Item
 	Given home page is loaded
 	And todo list with few items is displayed
 	When user clicked into new item input

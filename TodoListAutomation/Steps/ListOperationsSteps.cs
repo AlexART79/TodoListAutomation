@@ -5,8 +5,7 @@ using System.Linq;
 using System;
 
 namespace TodoListAutomation
-{
-    
+{    
     [Binding]
     public class ListOperationsSteps : BaseSteps
     {
@@ -78,6 +77,66 @@ namespace TodoListAutomation
         {
             Assert.That(app.HomePage.List.Displayed);
             _itemsCount = app.TodoListApi.GetAll().Count();
+        }
+
+        [Given(@"there is an uncomplete item with text ""(.*)""")]
+        public void GivenThereIsAnUncompleteItemWithText(string itemText)
+        {            
+            var item = new TodoItem() { text = itemText };
+            
+            app.TodoListApi.AddNew(item);
+
+            item = app.TodoListApi.GetAll().FirstOrDefault(e => e.text == itemText);
+
+            Assert.That(item, Is.Not.Null);
+            Assert.That(!item.complete);
+
+            _item = item; // save for further use
+        }
+
+        [Given(@"there is a completed item with text ""(.*)""")]
+        public void GivenThereIsACompletedItemWithText(string itemText)
+        {
+            var item = new TodoItem() { text = itemText };
+
+            app.TodoListApi.AddNew(item);
+
+            item = app.TodoListApi.GetAll().FirstOrDefault(e => e.text == itemText);
+
+            Assert.That(item, Is.Not.Null);
+            Assert.That(item.complete);
+
+            _item = item; // save for further use
+        }
+
+        [When(@"user click on item's left circle icon")]
+        public void WhenUserClickOnItemSLeftCircleItem()
+        {
+
+        }
+
+        [Then(@"item should be complete")]
+        public void ThenItemShouldBeComplete()
+        {
+
+        }
+
+        [Then(@"item should be not complete")]
+        public void ThenItemShouldBeNotComplete()
+        {
+
+        }
+
+        [When(@"user click on item's right X icon")]
+        public void WhenUserClickOnItemSRightXIcon()
+        {
+
+        }
+
+        [Then(@"item should be deleted")]
+        public void ThenItemShouldBeDeleted()
+        {
+
         }
     }
 }
