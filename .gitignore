@@ -1,0 +1,9 @@
+# ignore binaries
+**/bin
+**/obj
+
+# ignore packages
+packages
+
+# ignore VS files
+.vs
