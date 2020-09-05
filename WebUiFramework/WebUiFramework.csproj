@@ -50,7 +50,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Browser.cs" />
+    <Compile Include="BrowserFactory\Browser.cs" />
+    <Compile Include="BrowserFactory\BrowserFactory.cs" />
+    <Compile Include="BrowserFactory\ChromeBrowser.cs" />
+    <Compile Include="BrowserFactory\FirefoxBrowser.cs" />
     <Compile Include="Elements\Button.cs" />
     <Compile Include="Elements\Edit.cs" />
     <Compile Include="Elements\Element.cs" />

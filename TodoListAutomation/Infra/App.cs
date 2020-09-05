@@ -3,6 +3,7 @@ using DBFramework;
 using RestFramework;
 using System;
 using WebUiFramework;
+using WebUiFramework.BrowserFactory;
 
 namespace TodoListAutomation
 {
@@ -20,7 +21,7 @@ namespace TodoListAutomation
 
         public App()
         {
-            Browser = new Browser();
+            Browser = BrowserFactory.GetBrowser();
             HomePage = new HomePage(Browser);
 
             TodoListDb = new TodoListDbClient();
