@@ -6,6 +6,9 @@
         Firefox
     }
 
+    /// <summary>
+    /// Implements FactoryMethod pattern
+    /// </summary>
     public static class BrowserFactory
     {             
         public static Browser GetBrowser(BrowserName name = BrowserName.Chrome)

@@ -47,25 +47,25 @@ namespace WebUiFramework
         public WebElement Wrap(IWebElement element)
         {
             _element = element;
-            return this;
+            return this; // Chain invocation pattern
         }
 
         public WebElement Click()
         {
             Element.Click();
-            return this;
+            return this; // Chain invocation pattern
         }
         
         public WebElement SendKeys(string text)
         {
             Element.SendKeys(text);
-            return this;
+            return this; // Chain invocation pattern
         }
 
         public WebElement WaitFor(int seconds = 30)
         {
             Helpers.Wait(() => Element != null, TimeSpan.FromSeconds(seconds));
-            return this;
+            return this; // Chain invocation pattern
         }
     }
 }

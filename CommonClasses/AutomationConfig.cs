@@ -2,6 +2,9 @@
 
 namespace CommonClasses
 {
+    /// <summary>
+    /// Singletone Config
+    /// </summary>
     public sealed class AutomationConfig
     {
         private static AutomationConfig instance = null;

@@ -50,7 +50,7 @@ namespace TodoListAutomation
             // utility func
             Func<TodoItemData> findItem = () =>
                 app.TodoListApi.GetAll().FirstOrDefault(e => e.text == _item.text);
-         
+                     
             Assert.That(Helpers.Wait(() => findItem() != null));
 
             // find item in the list
@@ -80,7 +80,7 @@ namespace TodoListAutomation
             // add a complete item directly to DB
             app.TodoListDb.Add(new TodoItemData() { text = itemText, complete = false });
 
-            // verify it's complete
+            // verify it's not complete
             var item = app.TodoListApi.GetAll().FirstOrDefault(e => e.text == itemText);
             Assert.That(item, Is.Not.Null);
             Assert.That(!item.complete);
