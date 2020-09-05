@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using WebUiFramework.Elements;
 
 namespace WebUiFramework
 {
@@ -11,15 +12,12 @@ namespace WebUiFramework
             this.driver = browser.Driver;
         }
 
-        public IWebElement Header => driver.FindElement(By.CssSelector(".list-header"));
+        public WebElement Header => new WebElement(driver, By.CssSelector(".list-header")).WaitFor();
 
-        public IWebElement List => driver.FindElement(By.CssSelector("div[role=list]"));
+        public TodoList List => new TodoList(driver, By.CssSelector("div[role=list]")).WaitFor() as TodoList;
 
-        public IWebElement Form => driver.FindElement(By.CssSelector("form"));
-
-        public IWebElement Input => driver.FindElement(By.CssSelector("form .input input"));
-
-        public IWebElement Submit => driver.FindElement(By.CssSelector("form .field button"));
+        public Form Form => new Form(driver, By.CssSelector("form")).WaitFor() as Form;
+                
 
         public void Open(string url)
         {            

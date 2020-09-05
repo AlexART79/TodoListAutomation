@@ -2,7 +2,7 @@
 
 namespace CommonClasses
 {
-    public class TodoItem
+    public class TodoItemData
     {
         public int id { get; set; }
         public string text { get; set; } = "";

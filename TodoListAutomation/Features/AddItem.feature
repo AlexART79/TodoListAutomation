@@ -3,9 +3,8 @@
 
 Scenario: Add Item
 	Given home page is loaded
-	And todo list with few items is displayed
-	When user clicked into new item input
-	And typed text "My new item"
-	And pressed Enter key
+	And todo list with few items is displayed	
+	When typed text "My new item" into new item form
+	And pressed Submit button
 	Then new item should be added to the list
 	And added item status should not be complete

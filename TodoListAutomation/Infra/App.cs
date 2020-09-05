@@ -1,8 +1,8 @@
-﻿using DBFramework;
+﻿using CommonClasses;
+using DBFramework;
 using RestFramework;
 using System;
 using WebUiFramework;
-using TodoListAutomation.Properties;
 
 namespace TodoListAutomation
 {
@@ -10,12 +10,12 @@ namespace TodoListAutomation
     {
         private bool disposedValue;
 
-        public readonly string ApiUrl = Settings.Default.API_HOST;
-        public readonly string AppUrl = Settings.Default.BASE_URL;
+        public readonly string ApiUrl = AutomationConfig.Instance.ApiHost;
+        public readonly string AppUrl = AutomationConfig.Instance.BaseUrl;
 
         public Browser Browser { get; set; }
         public HomePage HomePage { get; set; }
-        public TodoList TodoListDb { get; set; }
+        public TodoListDbClient TodoListDb { get; set; }
         public ApiClient TodoListApi { get; set; }
 
         public App()
@@ -23,7 +23,7 @@ namespace TodoListAutomation
             Browser = new Browser();
             HomePage = new HomePage(Browser);
 
-            TodoListDb = new TodoList();
+            TodoListDb = new TodoListDbClient();
             TodoListApi = new ApiClient(ApiUrl);
         }
 

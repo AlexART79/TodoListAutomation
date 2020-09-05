@@ -8,7 +8,7 @@ namespace RestFramework
 {
     internal class Todos
     {
-        public List<TodoItem> todos;
+        public List<TodoItemData> todos;
     }
 
     public class ApiClient
@@ -19,7 +19,7 @@ namespace RestFramework
         {
             _baseUrl = baseUrl;
         }
-        public List<TodoItem> GetAll()
+        public List<TodoItemData> GetAll()
         {
             string endpoint = "/api/todo";
 
@@ -40,7 +40,7 @@ namespace RestFramework
             return items;
         }
 
-        public bool AddNew(TodoItem newItem)
+        public bool AddNew(TodoItemData newItem)
         {
             string endpoint = "/api/todo";
 
