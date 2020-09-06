@@ -1,7 +1,9 @@
-﻿using AventStack.ExtentReports;
+﻿using Allure.Commons;
+using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.Reporter;
 using BoDi;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Threading;
@@ -29,6 +31,14 @@ namespace TodoListAutomation
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
+            Environment.CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            Environment.SetEnvironmentVariable(
+                AllureConstants.ALLURE_CONFIG_ENV_VARIABLE,
+                Path.Combine(
+                    Environment.CurrentDirectory,
+                    AllureConstants.CONFIG_FILENAME));
+
             #region ExtentReports
 
             // Init extent reports
