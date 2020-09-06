@@ -4,8 +4,11 @@ using TechTalk.SpecFlow;
 namespace TodoListAutomation
 {
     [Binding]
-    public class HomePageSteps : BaseSteps
-    {        
+    public class HomePageSteps
+    {
+
+        protected App app;
+
         public HomePageSteps(App app)            
         {
             // shared data injection
