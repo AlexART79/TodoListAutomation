@@ -60,7 +60,7 @@ namespace TodoListAutomation
             );
 
             // verify that count is greater
-            Assert.That(app.HomePage.List.Items.Count, Is.EqualTo(_itemsCount + 2));
+            Assert.That(app.HomePage.List.Items.Count, Is.EqualTo(_itemsCount + 1));
         }
 
         [Then(@"added item status should not be complete")]
