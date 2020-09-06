@@ -1,11 +1,10 @@
-﻿using TechTalk.SpecFlow;
+﻿using CommonClasses;
 using NUnit.Framework;
-using CommonClasses;
 using System.Linq;
-using System;
+using TechTalk.SpecFlow;
 
 namespace TodoListAutomation
-{    
+{
     [Binding]
     public class ListOperationsSteps
     {
@@ -20,7 +19,12 @@ namespace TodoListAutomation
         {            
             if (_item != null)
             {
-                app.TodoListApi.DeleteItem(_item.id);
+                var itemInfo = app.TodoListApi.GetAll().FirstOrDefault(e => e.text == _item.text);
+                if (itemInfo != null)
+                {
+                    app.TodoListApi.DeleteItem(itemInfo.id);
+                    _item = null;
+                }
             }
         }
 
@@ -48,24 +52,25 @@ namespace TodoListAutomation
 
         [Then(@"new item should be added to the list")]
         public void ThenNewItemShouldBeAddedToTheList()
-        {
-            // utility func
-            Func<TodoItemData> findItem = () =>
-                app.TodoListApi.GetAll().FirstOrDefault(e => e.text == _item.text);
-                     
-            Assert.That(Helpers.Wait(() => findItem() != null));
+        {            
+            Assert.That(
+                Helpers.Wait(
+                    () => app.HomePage.List.Items.Any(l => l.Text == _item.text)
+                )
+            );
 
-            // find item in the list
-            var itemFound = findItem();
-            _item = itemFound; // save found item (all it's fields are required)
-
-            Assert.That(app.TodoListApi.GetAll().Count, Is.EqualTo(_itemsCount + 2));
+            // verify that count is greater
+            Assert.That(app.HomePage.List.Items.Count, Is.EqualTo(_itemsCount + 1));
         }
 
         [Then(@"added item status should not be complete")]
         public void ThenAddedItemStatusShouldNotBeComplete()
         {
-            Assert.That(!_item.complete);
+            Assert.That(
+                Helpers.Wait(
+                    () => app.HomePage.List.Items.Any(l => l.Text == _item.text && !l.Complete)
+                )
+            );
         }
 
         [Given(@"todo list with few items is displayed")]
@@ -102,7 +107,7 @@ namespace TodoListAutomation
             Assert.That(item.complete);
 
             // save for further use
-            _item = item; 
+            _item = item;
         }
 
         [When(@"user click on item's left circle icon")]
@@ -116,30 +121,24 @@ namespace TodoListAutomation
 
         [Then(@"item should be complete")]
         public void ThenItemShouldBeComplete()
-        {            
-            // utility func
-            Func<TodoItemData> findItem = () =>
-                app.TodoListApi.GetAll().FirstOrDefault(e => e.text == _item.text);
-
-            Assert.That(Helpers.Wait(() =>
-            {
-                var item = findItem();
-                return item != null && item.complete;
-            }));
+        {   
+            // UI verification
+            Assert.That(
+                Helpers.Wait(
+                    () => app.HomePage.List.Items.Any(l => l.Text == _item.text && l.Complete)
+                )
+            );            
         }
 
         [Then(@"item should be not complete")]
         public void ThenItemShouldBeNotComplete()
-        {
-            // utility func
-            Func<TodoItemData> findItem = () =>
-                app.TodoListApi.GetAll().FirstOrDefault(e => e.text == _item.text);
-
-            Assert.That(Helpers.Wait(() =>
-            {
-                var item = findItem();
-                return item != null && !item.complete;
-            }));
+        {            
+            // UI verification
+            Assert.That(
+                Helpers.Wait(
+                    () => app.HomePage.List.Items.Any(l => l.Text == _item.text && !l.Complete)
+                )
+            );            
         }
 
         [When(@"user click on item's right X icon")]
@@ -153,12 +152,16 @@ namespace TodoListAutomation
 
         [Then(@"item should be deleted")]
         public void ThenItemShouldBeDeleted()
-        {
-            // utility func
-            Func<TodoItemData> findItem = () =>
-                app.TodoListApi.GetAll().FirstOrDefault(e => e.text == _item.text);
+        {            
+            // UI verification
+            Assert.That(
+                Helpers.Wait(
+                    () => !app.HomePage.List.Items.Any(l => l.Text == _item.text)
+                )
+            );
 
-            Assert.That(Helpers.Wait(() => findItem() == null));
+            _item = null;
         }
     }
 }
+

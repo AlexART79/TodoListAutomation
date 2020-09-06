@@ -12,7 +12,7 @@ namespace WebUiFramework
 
         protected IWebElement _element;
 
-        public WebElement(IWebDriver driver, By locator=null, IWebElement context=null)
+        public WebElement(IWebDriver driver, By locator = null, IWebElement context = null)
         {
             this.driver = driver;
             this.locator = locator;
@@ -27,7 +27,7 @@ namespace WebUiFramework
             {
                 if (_element != null)
                     return _element;
-                
+
                 try
                 {
                     return context != null ?
@@ -42,6 +42,11 @@ namespace WebUiFramework
         }
 
         public string Text => Element.Text;
+        public bool Complete {
+            get {
+                return Element.GetAttribute("class").Contains("todo-list-item-checked");
+            }
+        }
         public bool Displayed => Element.Displayed;
 
         public WebElement Wrap(IWebElement element)
