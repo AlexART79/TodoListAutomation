@@ -1,6 +1,8 @@
-﻿Feature: ApiCrudOperations
+﻿Feature: ApiTests
 	Verify API CRUD
 
+@api_tests
+@sanity
 Scenario: API CRUD operations	
 	When user inserting new item with text "API new uncomplete item"
 	Then DB should contain uncomplete item with text "API new uncomplete item"

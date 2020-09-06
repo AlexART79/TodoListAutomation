@@ -1,6 +1,8 @@
-﻿Feature: DbCrudOperations
+﻿Feature: DatabaseTests
 	Verify DB CRUD
 
+@db_tests
+@sanity
 Scenario: DB CRUD operations	
 	When user inserting new uncomplete item with text "DB new uncomplete item"
 	Then DB should contain uncomplete item with text "DB new uncomplete item"

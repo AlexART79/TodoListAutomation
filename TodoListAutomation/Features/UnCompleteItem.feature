@@ -4,6 +4,7 @@
 Background:
 	Given there is a completed item with text "This item is NOT completed yet"
 
+@ui_tests
 Scenario: Uncomplete Item
 	Given home page is loaded	
 	When user click on item's left circle icon

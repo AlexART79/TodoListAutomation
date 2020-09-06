@@ -4,6 +4,8 @@
 Background:
 	Given there is an uncomplete item with text "This item should be completed"
 
+@ui_tests
+@sanity
 Scenario: Complete Item
 	Given home page is loaded	
 	When user click on item's left circle icon
