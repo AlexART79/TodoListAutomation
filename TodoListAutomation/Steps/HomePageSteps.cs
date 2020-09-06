@@ -1,23 +1,29 @@
 ﻿using NUnit.Framework;
 using TechTalk.SpecFlow;
+using WebUiFramework;
+using WebUiFramework.BrowserFactory;
 
 namespace TodoListAutomation
 {
     [Binding]
     public class HomePageSteps
     {
-
         protected App app;
 
         public HomePageSteps(App app)            
         {
             // shared data injection
             this.app = app;
+
+            // init app
+            this.app.Browser = BrowserFactory.GetBrowser();
+            this.app.HomePage = new HomePage(this.app.Browser);
         }
 
         [Given(@"home page is loaded")]
         public void WhenHomePageIsLoaded()
         {
+            // open app home page
             app.HomePage.Open(app.AppUrl);
         }
 

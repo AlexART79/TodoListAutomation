@@ -21,9 +21,6 @@ namespace TodoListAutomation
 
         public App()
         {
-            Browser = BrowserFactory.GetBrowser();
-            HomePage = new HomePage(Browser);
-
             TodoListDb = new TodoListDbClient();
             TodoListApi = new ApiClient(ApiUrl);
         }

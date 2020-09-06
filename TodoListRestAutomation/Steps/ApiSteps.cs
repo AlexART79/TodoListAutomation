@@ -9,14 +9,14 @@ using TechTalk.SpecFlow;
 namespace TodoListAutomation
 {
     [Binding]
-    public class DbSteps
+    public class ApiSteps
     {
         ApiClient api;
         TodoListDbClient db;
 
         TodoItemData _item;
 
-        public DbSteps()            
+        public ApiSteps()            
         {
             db = new TodoListDbClient();
             api = new ApiClient(AutomationConfig.Instance.ApiHost);

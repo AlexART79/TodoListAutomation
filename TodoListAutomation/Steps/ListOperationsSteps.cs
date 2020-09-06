@@ -57,10 +57,9 @@ namespace TodoListAutomation
 
             // find item in the list
             var itemFound = findItem();
-                        
-            Assert.That(app.TodoListApi.GetAll().Count, Is.EqualTo(_itemsCount + 2));
-
             _item = itemFound; // save found item (all it's fields are required)
+
+            Assert.That(app.TodoListApi.GetAll().Count, Is.EqualTo(_itemsCount + 2));
         }
 
         [Then(@"added item status should not be complete")]
