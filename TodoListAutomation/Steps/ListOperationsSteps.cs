@@ -7,8 +7,10 @@ using System;
 namespace TodoListAutomation
 {    
     [Binding]
-    public class ListOperationsSteps : BaseSteps
+    public class ListOperationsSteps
     {
+        protected App app;
+
         // to keep item data between steps
         TodoItemData _item;  
         int _itemsCount;
@@ -56,7 +58,7 @@ namespace TodoListAutomation
             // find item in the list
             var itemFound = findItem();
                         
-            Assert.That(app.TodoListApi.GetAll().Count, Is.EqualTo(_itemsCount + 1));
+            Assert.That(app.TodoListApi.GetAll().Count, Is.EqualTo(_itemsCount + 2));
 
             _item = itemFound; // save found item (all it's fields are required)
         }
