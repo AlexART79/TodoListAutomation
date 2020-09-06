@@ -4,6 +4,7 @@
 Background:
 	Given there is an uncomplete item with text "This item should be deleted!"
 
+@ui_tests
 Scenario: Delete Item
 	Given home page is loaded	
 	When user click on item's right X icon

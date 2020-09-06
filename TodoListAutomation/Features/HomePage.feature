@@ -1,6 +1,7 @@
 ﻿Feature: HomePage
 	Verify TodoList home page
 
+@ui_tests
 Scenario: Verify Home Page	
 	Given home page is loaded
 	Then header should be displayed

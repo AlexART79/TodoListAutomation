@@ -21,23 +21,24 @@ namespace TodoListAutomation
         private static ExtentTest scenario;
         private static ExtentReports extent;
 
+        App app;
+
         public Hooks(IObjectContainer container, ScenarioContext sContext)
         {
             this.container = container;
             scenarioContext = sContext;
         }
 
-
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
-            Environment.CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //Environment.CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            Environment.SetEnvironmentVariable(
-                AllureConstants.ALLURE_CONFIG_ENV_VARIABLE,
-                Path.Combine(
-                    Environment.CurrentDirectory,
-                    AllureConstants.CONFIG_FILENAME));
+            //Environment.SetEnvironmentVariable(
+            //    AllureConstants.ALLURE_CONFIG_ENV_VARIABLE,
+            //    Path.Combine(
+            //        Environment.CurrentDirectory,
+            //        AllureConstants.CONFIG_FILENAME));
 
             #region ExtentReports
 
@@ -77,9 +78,11 @@ namespace TodoListAutomation
 
         [BeforeScenario]
         public void BeforeScenario()
-        {            
+        {
+            app = new App();
+
             // register injected value, autodisposable after test
-            container.RegisterInstanceAs<App>(new App(), dispose:true);
+            container.RegisterInstanceAs<App>(app, dispose:true);
 
             // extent reports
             scenario = featureName.CreateNode<Scenario>(scenarioContext.ScenarioInfo.Title);
@@ -87,9 +90,9 @@ namespace TodoListAutomation
 
         [AfterStep]
         public void AfterStep()
-        {
+        {            
             #region ExtentReports
-            
+
             var stepType = ScenarioStepContext.Current.StepInfo.StepDefinitionType.ToString();
 
             if (scenarioContext.TestError == null)
@@ -105,6 +108,18 @@ namespace TodoListAutomation
             }
 
             #endregion
+
+            #region Allure
+
+            // attach scr on fail
+            if (scenarioContext.TestError != null)
+            {
+                var scr = app.Browser.TakeScreenshot();                
+                AllureLifecycle.Instance.AddAttachment("App state on failure", "image/png", scr);
+            }
+
+            #endregion
+
 
             // For better visual debug purposes
             Thread.Sleep(500);

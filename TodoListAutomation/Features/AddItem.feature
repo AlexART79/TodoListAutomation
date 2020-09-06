@@ -1,6 +1,8 @@
 ﻿Feature: AddItem
 	Ensure item can be added
 
+@ui_tests
+@sanity
 Scenario: Add Item
 	Given home page is loaded
 	And todo list with few items is displayed	
