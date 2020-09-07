@@ -12,7 +12,7 @@ namespace TodoListAutomation {
   [Binding]
   public class Hooks {
     private readonly IObjectContainer _container;
-    private ScenarioContext _scenarioContext;
+    private readonly ScenarioContext _scenarioContext;
 
     private static ExtentTest _featureName;
     private static ExtentTest _scenario;
@@ -99,9 +99,8 @@ namespace TodoListAutomation {
 
       #endregion
 
-
       // For better visual debug purposes
-      Thread.Sleep(500);
+      // Thread.Sleep(500);
     }
 
 

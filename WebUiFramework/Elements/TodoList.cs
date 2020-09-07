@@ -3,17 +3,14 @@ using System.Collections.Generic;
 
 namespace WebUiFramework.Elements {
   public class TodoListItem : WebElement {
-    public TodoListItem(IWebDriver driver, By locator = null, IWebElement context = null)
-        : base(driver, locator, context) { }
-
     public WebElement CheckIcon => new WebElement(driver, By.CssSelector(".circle"), Element);
     public WebElement CloseIcon => new WebElement(driver, By.CssSelector(".close"), Element);
+
+    public TodoListItem(IWebDriver driver, By locator = null, IWebElement context = null)
+        : base(driver, locator, context) { }
   }
 
-  public class TodoList : WebElement {
-    public TodoList(IWebDriver driver, By locator = null, IWebElement context = null)
-        : base(driver, locator, context) { }
-
+  public class TodoList : WebElement {    
     public List<TodoListItem> Items {
       get {
         var lst = new List<TodoListItem>();
@@ -31,5 +28,8 @@ namespace WebUiFramework.Elements {
         return lst;
       }
     }
+
+    public TodoList(IWebDriver driver, By locator = null, IWebElement context = null)
+        : base(driver, locator, context) { }
   }
 }

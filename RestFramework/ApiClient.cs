@@ -10,7 +10,7 @@ namespace RestFramework {
   }
 
   public class ApiClient {
-    string _baseUrl;
+    private readonly string _baseUrl;
 
     public ApiClient(string baseUrl) {
       _baseUrl = baseUrl;

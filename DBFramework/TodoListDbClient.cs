@@ -4,9 +4,6 @@ using System.Linq;
 
 namespace DBFramework {
   public class TodoListDbClient {
-    public TodoListDbClient() {
-
-    }
 
     public List<TodoItemData> Items {
       get {
@@ -14,6 +11,10 @@ namespace DBFramework {
           return db.todo.ToList<TodoItemData>();
         }
       }
+    }
+
+    public TodoListDbClient() {
+
     }
 
     public void Add(TodoItemData item) {

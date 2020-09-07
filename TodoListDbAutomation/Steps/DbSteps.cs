@@ -8,7 +8,7 @@ using TechTalk.SpecFlow;
 namespace TodoListAutomation {
   [Binding]
   public class DbSteps {
-    TodoListDbClient _db;
+    readonly TodoListDbClient _db;
 
     public DbSteps() {
       _db = new TodoListDbClient();

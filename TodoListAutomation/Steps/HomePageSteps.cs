@@ -6,41 +6,41 @@ using WebUiFramework.BrowserFactory;
 namespace TodoListAutomation {
   [Binding]
   public class HomePageSteps {
-    protected App app;
+    private App _app;
 
     public HomePageSteps(App app) {
       // shared data injection
-      this.app = app;
+      _app = app;
 
       // init app
-      this.app.Browser = BrowserFactory.GetBrowser();
-      this.app.HomePage = new HomePage(this.app.Browser);
+      _app.Browser = BrowserFactory.GetBrowser();
+      _app.HomePage = new HomePage(_app.Browser);
     }
 
     [Given(@"home page is loaded")]
     public void WhenHomePageIsLoaded() {
       // open app home page
-      app.HomePage.Open(app.AppUrl);
+      _app.HomePage.Open(_app.AppUrl);
     }
 
     [Then(@"header should be displayed")]
     public void ThenHeaderShouldBeDisplayed() {
-      Assert.That(app.HomePage.Header.Displayed);
+      Assert.That(_app.HomePage.Header.Displayed);
     }
 
     [Then(@"header should have text ""(.*)""")]
     public void ThenHeaderShouldHaveText(string headerText) {
-      Assert.That(app.HomePage.Header.Text, Is.EqualTo(headerText));
+      Assert.That(_app.HomePage.Header.Text, Is.EqualTo(headerText));
     }
 
     [Then(@"todo list should be displayed")]
     public void ThenTodoListShouldBeDisplayed() {
-      Assert.That(app.HomePage.List.Displayed);
+      Assert.That(_app.HomePage.List.Displayed);
     }
 
     [Then(@"add new item form should be displayed")]
     public void ThenAddNewItemFormShouldBeDisplayed() {
-      Assert.That(app.HomePage.Form.Displayed);
+      Assert.That(_app.HomePage.Form.Displayed);
     }
   }
 }

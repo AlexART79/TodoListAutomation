@@ -21,12 +21,6 @@ namespace TodoListAutomation {
       TodoListApi = new ApiClient(ApiUrl);
     }
 
-    public void Close() {
-      if (Browser != null) {
-        Browser.Quit();
-      }
-    }
-
     protected virtual void Dispose(bool disposing) {
       if (!_disposedValue) {
         if (disposing) {
@@ -46,6 +40,12 @@ namespace TodoListAutomation {
       // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
       Dispose(disposing: true);
       GC.SuppressFinalize(this);
+    }
+
+    public void Close() {
+      if (Browser != null) {
+        Browser.Quit();
+      }
     }
   }
 }

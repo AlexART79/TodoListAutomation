@@ -9,10 +9,9 @@ using TechTalk.SpecFlow;
 namespace TodoListAutomation {
   [Binding]
   public class ApiSteps {
-    ApiClient _api;
-    TodoListDbClient _db;
-
-    TodoItemData _item;
+    private readonly ApiClient _api;
+    private readonly TodoListDbClient _db;
+    private TodoItemData _item;
 
     public ApiSteps() {
       _db = new TodoListDbClient();

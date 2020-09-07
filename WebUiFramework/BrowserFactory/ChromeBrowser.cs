@@ -7,7 +7,6 @@ namespace WebUiFramework.BrowserFactory {
   public class ChromeBrowser : Browser {
     public ChromeBrowser() {
       var driverPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
       var chromeOptions = new ChromeOptions();
 
       // run headless
