@@ -20,9 +20,9 @@ namespace WebUiFramework.Elements {
 
         // for each found element:
         foreach (var e in elements) {
-          // wrap found elements with WebElement
+          // wrap found elements with WebElement          
           var we = new TodoListItem(driver).Wrap(e);
-          lst.Add((TodoListItem)we);
+          lst.Add((TodoListItem)we);          
         }
 
         return lst;

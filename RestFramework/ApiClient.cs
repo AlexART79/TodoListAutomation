@@ -6,7 +6,8 @@ using System.Net;
 
 namespace RestFramework {
   internal class Todos {
-    public List<TodoItemData> todos;
+    [JsonProperty("todos")]
+    public List<TodoItemData> Items;
   }
 
   public class ApiClient {
@@ -30,7 +31,7 @@ namespace RestFramework {
 
       // handle response 
       var todos = JsonConvert.DeserializeObject<Todos>(response.Content);
-      var items = todos.todos;
+      var items = todos.Items;
 
       return items;
     }

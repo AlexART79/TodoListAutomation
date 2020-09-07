@@ -8,7 +8,7 @@ namespace DBFramework {
     public List<TodoItemData> Items {
       get {
         using (TodoDbContext db = new TodoDbContext()) {
-          return db.todo.ToList<TodoItemData>();
+          return db.Todo.ToList<TodoItemData>();
         }
       }
     }
@@ -19,14 +19,14 @@ namespace DBFramework {
 
     public void Add(TodoItemData item) {
       using (TodoDbContext db = new TodoDbContext()) {
-        db.todo.Add(item);
+        db.Todo.Add(item);
         db.SaveChanges();
       }
     }
 
     // delete
     public void Delete(int id) {
-      var del_item = Items.FirstOrDefault(e => e.id == id);
+      var del_item = Items.FirstOrDefault(e => e.Id == id);
 
       if (del_item == null) {
         return;
@@ -34,26 +34,26 @@ namespace DBFramework {
 
       using (TodoDbContext db = new TodoDbContext()) {
         // remove item and save changes
-        db.todo.Remove(del_item);
+        db.Todo.Remove(del_item);
         db.SaveChanges();
       }
     }
 
     // update
     public void Update(TodoItemData item) {
-      var up_item = Items.FirstOrDefault(e => e.id == item.id);
+      var up_item = Items.FirstOrDefault(e => e.Id == item.Id);
 
       if (up_item == null) {
         return;
       }
 
       // update data in item
-      up_item.text = item.text;
-      up_item.complete = item.complete;
+      up_item.Text = item.Text;
+      up_item.Complete = item.Complete;
 
       using (TodoDbContext db = new TodoDbContext()) {
         // update item in the list and save changes
-        db.todo.Update(up_item);
+        db.Todo.Update(up_item);
         db.SaveChanges();
       }
     }

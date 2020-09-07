@@ -25,11 +25,19 @@ namespace WebUiFramework {
         }
 
         try {
-          return context != null ?
+          var element = context != null ?
               context.FindElement(locator) :
               driver.FindElement(locator);
+
+          // in case of stale element it will except...
+          var txt = element.Text;
+          
+          return element;
         }
-        catch (NoSuchElementException) {
+        catch (StaleElementReferenceException) {           
+          return null;
+        }
+        catch (NoSuchElementException) {           
           return null;
         }
       }
@@ -41,6 +49,8 @@ namespace WebUiFramework {
         return Element.GetAttribute("class").Contains("todo-list-item-checked");
       }
     }
+
+    public bool Exists => Element != null;
     public bool Displayed => Element.Displayed;
 
     public WebElement Wrap(IWebElement element) {
@@ -59,7 +69,7 @@ namespace WebUiFramework {
     }
 
     public WebElement WaitFor(int seconds = 30) {
-      Helpers.Wait(() => Element != null, TimeSpan.FromSeconds(seconds));
+      Helpers.Wait(() => this.Exists, TimeSpan.FromSeconds(seconds));
       return this; // Chain invocation pattern
     }
   }
