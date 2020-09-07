@@ -43,15 +43,15 @@ namespace WebUiFramework {
       }
     }
 
-    public string Text => Element.Text;
+    public string Text => Element?.Text;
     public bool Complete {
       get {
-        return Element.GetAttribute("class").Contains("todo-list-item-checked");
+        return (bool)(Element?.GetAttribute("class").Contains("todo-list-item-checked"));
       }
     }
 
     public bool Exists => Element != null;
-    public bool Displayed => Element.Displayed;
+    public bool Displayed => (bool)(Element?.Displayed);
 
     public WebElement Wrap(IWebElement element) {
       _element = element;
@@ -59,12 +59,12 @@ namespace WebUiFramework {
     }
 
     public WebElement Click() {
-      Element.Click();
+      Element?.Click();
       return this; // Chain invocation pattern
     }
 
     public WebElement SendKeys(string text) {
-      Element.SendKeys(text);
+      Element?.SendKeys(text);
       return this; // Chain invocation pattern
     }
 

@@ -10,7 +10,7 @@ $rest_test_assembly = ".\bin\Debug\TodoListRestAutomation.dll"
 $where = ''
 $cat = ''
 
-if ($cat -ne '') {
+if ($cat -ne "" -and $cat -ne $null) {
     $where = "--where:cat="+$cat
 }
 
