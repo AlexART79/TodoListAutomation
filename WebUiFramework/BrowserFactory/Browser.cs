@@ -1,29 +1,23 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 
-namespace WebUiFramework
-{
-    public abstract class Browser
-    {
-        public IWebDriver Driver { get; protected set; }
+namespace WebUiFramework {
+  public abstract class Browser {
+    public IWebDriver Driver { get; protected set; }
 
-        public byte[] TakeScreenshot()
-        {
-            return Driver.TakeScreenshot().AsByteArray;
-        }
-        
-        public string TakeScreenshotBase64()
-        {
-            return Driver.TakeScreenshot().AsBase64EncodedString;
-        }
+    public byte[] TakeScreenshot() {
+      return Driver.TakeScreenshot().AsByteArray;
+    }
 
-        public void Quit()
-        {
+    public string TakeScreenshotBase64() {
+      return Driver.TakeScreenshot().AsBase64EncodedString;
+    }
 
-            if (Driver != null)
-            {
-                Driver.Quit();
-            }
-        }
-    } 
+    public void Quit() {
+
+      if (Driver != null) {
+        Driver.Quit();
+      }
+    }
+  }
 }
