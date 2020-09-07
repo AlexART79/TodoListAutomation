@@ -1,5 +1,6 @@
 ﻿using CommonClasses;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using System.Linq;
 using TechTalk.SpecFlow;
 
@@ -15,9 +16,9 @@ namespace TodoListAutomation {
     [AfterScenario]
     public void CleanScenario() {
       if (_item != null) {
-        var itemInfo = _app.TodoListApi.GetAll().FirstOrDefault(e => e.text == _item.text);
+        var itemInfo = _app.TodoListApi.GetAll().FirstOrDefault(e => e.Text == _item.Text);
         if (itemInfo != null) {
-          _app.TodoListApi.DeleteItem(itemInfo.id);
+          _app.TodoListApi.DeleteItem(itemInfo.Id);
           _item = null;
         }
       }
@@ -34,7 +35,7 @@ namespace TodoListAutomation {
           .Click()
           .SendKeys(text);
 
-      _item = new TodoItemData() { text = text }; // save data for further use
+      _item = new TodoItemData() { Text = text }; // save data for further use
     }
 
     [When(@"pressed Submit button")]
@@ -46,7 +47,7 @@ namespace TodoListAutomation {
     public void ThenNewItemShouldBeAddedToTheList() {
       Assert.That(
           Helpers.Wait(
-              () => _app.HomePage.List.Items.Any(l => l.Text == _item.text)
+              () => _app.HomePage.List.Items.Any(l => l.Text == _item.Text)
           )
       );
 
@@ -58,7 +59,7 @@ namespace TodoListAutomation {
     public void ThenAddedItemStatusShouldNotBeComplete() {
       Assert.That(
           Helpers.Wait(
-              () => _app.HomePage.List.Items.Any(l => l.Text == _item.text && !l.Complete)
+              () => _app.HomePage.List.Items.Any(l => l.Text == _item.Text && !l.Complete)
           )
       );
     }
@@ -72,12 +73,12 @@ namespace TodoListAutomation {
     [Given(@"there is an uncomplete item with text ""(.*)""")]
     public void GivenThereIsAnUncompleteItemWithText(string itemText) {
       // add a complete item directly to DB
-      _app.TodoListDb.Add(new TodoItemData() { text = itemText, complete = false });
+      _app.TodoListDb.Add(new TodoItemData() { Text = itemText, Complete = false });
 
       // verify it's not complete
-      var item = _app.TodoListApi.GetAll().FirstOrDefault(e => e.text == itemText);
+      var item = _app.TodoListApi.GetAll().FirstOrDefault(e => e.Text == itemText);
       Assert.That(item, Is.Not.Null);
-      Assert.That(!item.complete);
+      Assert.That(!item.Complete);
 
       // save for further use
       _item = item;
@@ -86,12 +87,12 @@ namespace TodoListAutomation {
     [Given(@"there is a completed item with text ""(.*)""")]
     public void GivenThereIsACompletedItemWithText(string itemText) {
       // add a complete item directly to DB
-      _app.TodoListDb.Add(new TodoItemData() { text = itemText, complete = true });
+      _app.TodoListDb.Add(new TodoItemData() { Text = itemText, Complete = true });
 
       // verify it's complete
-      var item = _app.TodoListApi.GetAll().FirstOrDefault(e => e.text == itemText);
+      var item = _app.TodoListApi.GetAll().FirstOrDefault(e => e.Text == itemText);
       Assert.That(item, Is.Not.Null);
-      Assert.That(item.complete);
+      Assert.That(item.Complete);
 
       // save for further use
       _item = item;
@@ -99,8 +100,8 @@ namespace TodoListAutomation {
 
     [When(@"user click on item's left circle icon")]
     public void WhenUserClickOnItemSLeftCircleItem() {
-      var item = _app.HomePage.List.Items.FirstOrDefault(e => e.Text == _item.text);
-      Assert.That(item, Is.Not.Null, $"Item with text {_item.text} is not in the list!");
+      var item = _app.HomePage.List.Items.FirstOrDefault(e => e.Text == _item.Text);
+      Assert.That(item, Is.Not.Null, $"Item with text {_item.Text} is not in the list!");
 
       item.CheckIcon.Click();
     }
@@ -110,7 +111,7 @@ namespace TodoListAutomation {
       // UI verification
       Assert.That(
           Helpers.Wait(
-              () => _app.HomePage.List.Items.Any(l => l.Text == _item.text && l.Complete)
+              () => _app.HomePage.List.Items.Any(l => l.Text == _item.Text && l.Complete)
           )
       );
     }
@@ -120,28 +121,31 @@ namespace TodoListAutomation {
       // UI verification
       Assert.That(
           Helpers.Wait(
-              () => _app.HomePage.List.Items.Any(l => l.Text == _item.text && !l.Complete)
+              () => _app.HomePage.List.Items.Any(l => l.Text == _item.Text && !l.Complete)
           )
       );
     }
 
     [When(@"user click on item's right X icon")]
     public void WhenUserClickOnItemSRightXIcon() {
-      var item = _app.HomePage.List.Items.FirstOrDefault(e => e.Text == _item.text);
-      Assert.That(item, Is.Not.Null, $"Item with text {_item.text} is not in the list!");
+      var item = _app.HomePage.List.Items.FirstOrDefault(e => e.Text == _item.Text);
+      Assert.That(item, Is.Not.Null, $"Item with text {_item.Text} is not in the list!");
 
       item.CloseIcon.Click();
     }
 
     [Then(@"item should be deleted")]
     public void ThenItemShouldBeDeleted() {
-      // UI verification
-      Assert.That(
-          Helpers.Wait(
-              () => !_app.HomePage.List.Items.Any(l => l.Text == _item.text)
-          )
-      );
 
+      // wait untill element deleted on the backend
+      //Helpers.Wait(
+      //    () => !_app.TodoListApi.GetAll().Any(l => l.Text == _item.Text)
+      //);
+
+      // UI verification      
+      Assert.That(Helpers.Wait(() => !_app.HomePage.List.Items.Any(l => l.Exists && l.Text == _item.Text)));
+
+      // set the _item to null to avoid removing nothing at the cleanup stage
       _item = null;
     }
   }

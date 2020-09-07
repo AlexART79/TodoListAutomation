@@ -1,8 +1,17 @@
 ﻿
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CommonClasses {
   public class TodoItemData {
-    public int id { get; set; }
-    public string text { get; set; } = "";
-    public bool complete { get; set; } = false;
+    [Column("id")]
+    [JsonProperty("id")]
+    public int Id { get; set; }
+    [Column("text")]
+    [JsonProperty("text")]
+    public string Text { get; set; } = "";
+    [Column("complete")]
+    [JsonProperty("complete")]
+    public bool Complete { get; set; } = false;
   }
 }
